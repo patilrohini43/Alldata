@@ -30,6 +30,9 @@ public class Linked<T>
 	
 	//###########################################Insert Method###############################################//
 	//create insert method and pass parameter data 
+	/**
+	 * @param data
+	 */
 	public void insert(T data)
 	{
 		Node<T> node=new Node(data);   // create node object

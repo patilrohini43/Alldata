@@ -15,43 +15,12 @@ public class Palindrome {
 	{
 		Utility u=new Utility();
 	
-		//create the object of palindome 
-		PalindromeLogic<Integer> list=new PalindromeLogic<>();
 		
+		//accept the string
 		System.out.println("Enter a String");
 		String str=u.inputString();
-		for(int i=0;i<str.length();i++)
-		{
-			int c=str.charAt(i);
-			list.addRear(c);
-		
-		}
-
-        boolean isPalindrome=true;
-       // int first=list.dequeue();
-         //int last=list.dequeueLast();
-        
-        while (list.size()>1) {
-          { 
-    	if(list.removeFront()==list.removeRear())
-    	{
-    		   // System.out.println(list.removeFront());
-                continue;
-            } else {
-            	
-            	  //System.out.println(list.removeRear());
-                isPalindrome=false;
-                break;
-            }
-        }
-       
-        }
-        
-        if (!isPalindrome) {
-            System.out.println("Not a Palindrome");
-        } else {
-            System.out.println("Palindrome");
-        }
+		//calll method
+		PalindromeMethod.palindromeMethod(str);
 	}
 
 }

@@ -26,7 +26,7 @@ public class PrimeAnagramUsingQueue {
 			String string1="";
 			String string2="";
 			
-			
+			//accept the input from user
 			System.out.println(" the range of prime numbers");
 			int number=u.inputInteger();
 			ArrayList<Integer> prime=Utility.prime(number);
@@ -39,9 +39,10 @@ public class PrimeAnagramUsingQueue {
 				  {
 					string1=Integer.toString(prime.get(i));
 					string2=Integer.toString(prime.get(j));
+					//check string equal or not
 					  if(u.isAnagram(string1,string2))
 					  {
-						  
+						  //add the value using queue
 				       System.out.println(queue.enqueue(string1+"  "+string2));
 				        count++;
 				  
@@ -52,6 +53,7 @@ public class PrimeAnagramUsingQueue {
 			 
 			  for(int i=1;i<=count;i++)
 				{
+				  //delete the value from queue 
 					System.out.println(queue.dequeue());
 				}
 		}

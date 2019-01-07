@@ -18,13 +18,15 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
+import all.program.utility.Utility;
+
 public class Unordered {
 	
 	public static void main(String args []) throws Exception
 	{
 		
 		
-   Linked<String> list = new Linked<>();
+    Linked<String> list = new Linked<>();
 		
    try
    {
@@ -56,8 +58,11 @@ public class Unordered {
 	public static void operation(String str[]) throws Exception
 	 
 	{
+		Utility u=new Utility();
     
 	Linked<String> list = new Linked<>();
+	
+
 	
 	for(int i = 0; i < str.length ;i++ )
 	{
@@ -71,12 +76,12 @@ public class Unordered {
 	list.show();
 
 	
-	
+	//accept the search element
 	System.out.println("\n Enter Search String");
-	Scanner sc = new Scanner(System.in);
-    String search=sc.nextLine();
+    String search=u.inputString();
     
 	int position = list.index(search);
+	//if position equal then insert search key otherwise delete
 	if(position == 0)
 	{
 		
@@ -89,7 +94,8 @@ public class Unordered {
 		
 		list.delete(search);
 	}
-	list.show();
+	list.show();        //display value
+	
 	
 	
 	

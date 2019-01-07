@@ -2,7 +2,7 @@ package all.program.data;
 
 public class LinkedList<T> {
 	
-	
+	//create the node class
 	 private static class Node<T> {
 
 	        private T data;

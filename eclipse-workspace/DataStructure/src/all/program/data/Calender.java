@@ -14,7 +14,7 @@ public class Calender {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Utility u=new Utility();
-		CalenderMethod cal=new CalenderMethod ();
+	
 		
 		System.out.println("Enter month between 1 to 12");
 		String month=u.inputString();
@@ -27,9 +27,9 @@ public class Calender {
 	    System.out.print("Enter the week day name (e.g. Sunday) of 1st day of "+month+" : ");
         String day = u.inputString();
 	    
-	    int max=cal.findMaxDay(month, year);
-	    int f=cal.findDay(day);
-	    cal.fillCalendar(max, f, month, year);
+	    int max=u.findMaxDay(month, year);
+	    int f=u.findDay(day);
+	    u.fillCalendar(max, f, month, year);
 	    
 		
 

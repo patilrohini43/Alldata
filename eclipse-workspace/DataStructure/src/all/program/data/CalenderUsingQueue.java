@@ -9,13 +9,13 @@ package all.program.data;
 
 import all.program.utility.Utility;
 
-public class Calender2 {
+public class CalenderUsingQueue {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		// TODO Auto-generated method stub
 				Utility u=new Utility();
-				Cal  cal=new Cal ();
+				CalenderMethod  cal=new CalenderMethod ();
 				
 				System.out.println("Enter month between 1 to 12");
 				String month=u.inputString();
