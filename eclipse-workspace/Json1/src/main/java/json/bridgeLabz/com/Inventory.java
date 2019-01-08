@@ -1,14 +1,14 @@
 package json.bridgeLabz.com;
 
 public class Inventory {
-String empName;
+String name;
 int weight;
-int salary;
-public String getEmpName() {
-	return empName;
+int price;
+public String getName() {
+	return name;
 }
-public void setEmpName(String empName) {
-	this.empName = empName;
+public void setName(String name) {
+	this.name = name;
 }
 public int getWeight() {
 	return weight;
@@ -16,12 +16,15 @@ public int getWeight() {
 public void setWeight(int weight) {
 	this.weight = weight;
 }
-public int getSalary() {
-	return salary;
+public int getPrice() {
+	return price;
 }
-public void setSalary(int salary) {
-	this.salary = salary;
+public void setPrice(int price) {
+	this.price = price;
 }
+
+
+
 
 
 
