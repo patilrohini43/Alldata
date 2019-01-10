@@ -1,9 +1,16 @@
-package json.bridgeLabz.com;
+package com.bridgeLabz.oops;
 
 public class Inventory {
 String name;
 int weight;
 int price;
+int total;
+public int getTotal() {
+	return total;
+}
+public int setTotal(int total) {
+	return this.total = total;
+}
 public String getName() {
 	return name;
 }

@@ -3,10 +3,11 @@ package json.bridgelabz.util;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 
 import java.text.DateFormat;
-import java.text.ParseException;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Random;
@@ -22,25 +23,40 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
-import json.bridgeLabz.com.Inventory;
+import com.bridgeLabz.oops.Inventory;
 
+@SuppressWarnings("unused")
 public class Jsonutil {
 	
-	Scanner scanner=new Scanner(System.in);
+	static Scanner scanner=new Scanner(System.in);
 	
-	public String getString()
+	public static String getString()
 	{
 		String string="";
 		return string=scanner.nextLine();
 	}
+	public static void strClose()
+	{
+		scanner.close();
+	}
 	
-	public int getInt()
+	public static int getInt()
 	{
       int number=scanner.nextInt();
 	return number;
 	
 	}
-	
+
+	/**
+	 * To get String with Space's
+	 * 
+	 * @return String
+	 */
+	public static String getLine() {
+		String i = scanner.nextLine();
+		return i;
+
+}
 	
 	
 	//The SimpleDateFormat class is also used for formatting date
@@ -61,6 +77,7 @@ public class Jsonutil {
 	
 	private static ObjectMapper mapper;
 	static Inventory inventory=new Inventory();
+	private static FileWriter file;
 	
 	static {
 		mapper=new ObjectMapper();
@@ -108,6 +125,76 @@ public static String convertJavaToJson(Object object)
 }
 
 
+
+
+/**
+ * This method get the data from user and write into file in json format
+ * @param inventory is the object Inventory class
+ */
+
+public static void filewrite(Inventory inventory) 
+{
+	
+	ObjectMapper mapper=new ObjectMapper();
+	String json="[";
+	JSONParser parser=new JSONParser();
+	try {
+			File file=new File("/home/admin1/inventory.json");
+			
+			//if the file is empty 
+			if(file.length()==0)
+			{
+					
+	        		 json=json+mapper.writeValueAsString(inventory)+"]";
+			}
+			
+			{    
+				//read the data from file
+				Object object = parser.parse(new FileReader("/home/admin1/inventory.json"));
+				JSONArray array=new JSONArray();
+				array=(JSONArray) object;
+				for (int j = 0; j < array.size(); j++) {
+					json=json+array.get(j)+",";
+					//System.out.println(json);
+				}
+				json=json+mapper.writeValueAsString(inventory)+"]";
+				System.out.println(json);
+
+			}
+		
+			
+		}
+
+			catch (IOException e1) {
+					e1.printStackTrace();
+			} catch (org.json.simple.parser.ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+	 try  {
+		    file = new FileWriter("/home/admin1/inventory.json");
+		 	file.write(json);
+		 	file.flush();
+	 		}
+	 catch (IOException e) {
+	        e.printStackTrace();
+	    }
+	   
+	 
+}
+
+
+
+
+
+
+
+
+
+
+
+
 /**
  * This method is match the regex and replace the string
  * @param message  the original string
@@ -115,8 +202,7 @@ public static String convertJavaToJson(Object object)
  * @param requried where uu want to replace
  * @return
  */
-public  String convertString(String message,String change,String requried)
-
+public static  String convertString(String message,String change,String requried)
 {
 
 	Pattern p=Pattern.compile(change);
@@ -204,109 +290,61 @@ public static void parseEmployeeObject(JSONObject stock)
 /**
  * Deal 52 cards uniformly at random.
  * Shuffle the cards using Random method
- */
-public static void dackOfCard()
-{
-     String[] Suits = {
-         "Clubs", "Diamonds", "Hearts", "Spades"
-     };
-
-     String[] Ranks = {
-         "2", "3", "4", "5", "6", "7", "8", "9", "10",
-         "Jack", "Queen", "King", "Ace"
-     };
-
-     // initialize deck
-     int n = Suits.length * Ranks.length;
-     String[] deck = new String[n];
-     for (int i = 0; i < Ranks.length; i++)
-     {
-         for (int j = 0; j < Suits.length; j++) 
-         {
-        
-             deck[Suits.length*i + j] = Ranks[i] + " of " + Suits[j];
-             //System.out.println("-------"+deck[Suits.length*i + j]);
-         }
-     }
-
-     // shuffle
-     for (int i = 0; i < n; i++) {
-         int r = i + (int) (Math.random() * (n-i));
-         String temp = deck[r];
-         deck[r] = deck[i];
-         deck[i] = temp;
-      
-     }
-
-     // print shuffled deck
-     for (int i = 0; i < n; i++) {
-         System.out.println(deck[i]);
-     }
- }
+ */ 
+    public static String[] getCard(String[] Suits,String[] Ranks)
+    {
+    	  int n = Suits.length * Ranks.length;
+    	     String[] deck = new String[n];
+    	     for (int i = 0; i < Ranks.length; i++)
+    	     {
+    	         for (int j = 0; j < Suits.length; j++) 
+    	         {
+    	        
+    	             deck[Suits.length*i + j] = Ranks[i] + " of " + Suits[j];
+    	        	// deck[i]=Ranks[i]+Suits[i];
+    	        	 
+    	           //  System.out.println("-------"+deck[Suits.length*i + j]);
+    	         }
+    	     }
+			return deck;
+    	
+    }
 
 
-public static void play()
-{
-	
-//create array of suits and rank
-String suits[]= {"clubs","hearts","diamond","spade"};
-String rank[]= {"2","3","4","5","6","7","8","9","10","king","queen","jack","ace"};
 
-//create the object of random
-Random r=new Random();
+   public static String[] shuffle(String[] deck,int times)
+   {
+	// shuffle
+	   int n=52;
+	     for (int i = 0; i < n; i++) {
+	         int r = i + (int) (Math.random() * (n-i));
+	         System.out.println(+r);
+	         String temp = deck[r];
+	         deck[r] = deck[i];
+	         deck[i] = temp;
+	      
+	     }
+		return deck;
+   }
 
-String player1[]=new String[9];
-String player2[]=new String[9];
-String player3[]=new String[9];
-String player4[]=new String[9];
-String player[]=new String[36];
-int k=0;
-	for(int j=0;j<9;j++)
+
+   public static String[][] distributeCards(String[] deck)
 	{
-		
-		player1[j]=suits[r.nextInt(4)]+"-"+rank[r.nextInt(13)];
-		//System.out.println(player1[j]);
-		player[k]=player1[j];
-		k++;
-		player2[j]=suits[r.nextInt(4)]+"-"+rank[r.nextInt(13)];
-		player[k]=player2[j];
-		k++;
-		player3[j]=suits[r.nextInt(4)]+"-"+rank[r.nextInt(13)];
-		player[k]=player3[j];
-		k++;
-		player4[j]=suits[r.nextInt(4)]+"-"+rank[r.nextInt(13)];
-		player[k]=player4[j];
-		k++;
-	
-	
-		 for(int i = 0; i<k-1;i++ ) 
-		 {
-	         for(int l = i+1; l<k; l++) 
-	         {
-	        	 if(player[i].equals(player[l])) 
-	        	 {
-	            		j--;
-	            		k=k-4;
-	            		break; 
-	            }
-	         }
-	         
-	      }
-		 
-	}	
-	System.out.println();
-	
-	//print the value
-	for(int i=0;i<9;i++)
-	{
-		System.out.print(player1[i]+"         "+player2[i]+"          "+player3[i]+"           "+player4[i]);
-		System.out.println();
+		int count = 0;
+		String playerCards[][] = new String[4][9];
+		for(int i = 0; i < 4 ; i++)
+		{
+			for(int j = 0; j < 9 ; j++)
+			{
+				playerCards[i][j] = deck[count];
+				count++;
+			}
+		}
+		return playerCards;
 	}
-	
-	
 
-}
+   
+   
 
-
-
+   
 }

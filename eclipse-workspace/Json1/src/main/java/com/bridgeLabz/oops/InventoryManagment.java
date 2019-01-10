@@ -1,4 +1,4 @@
-package json.bridgeLabz.com;
+package com.bridgeLabz.oops;
 
 import java.io.File;
 import java.io.IOException;
@@ -8,12 +8,6 @@ import java.util.List;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.type.TypeReference;
 
-
-
-/**
- * Hello world!
- *
- */
 public class InventoryManagment
 {
     public static void main( String[] args ) throws IOException 
