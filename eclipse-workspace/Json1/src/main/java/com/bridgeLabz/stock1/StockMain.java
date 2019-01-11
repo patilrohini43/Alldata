@@ -43,22 +43,25 @@ public class StockMain {
 							     String symbol=scanner.nextLine();
 								System.out.println("Enter number");
 							    int noofshare=scanner.nextInt();
-								
-								currentperson.buy(symbol, noofshare,namelogin);
+							    currentperson.buy(symbol, noofshare,namelogin);
+							
 								break;
 							case 2:
-								System.out.println("Enter Symbol");
-								//String symbol1=input.getString();
-								//System.out.println("Enter number");
-								//int noofshare1=input.getInt();
-								//currentperson.sell(symbol1, noofshare1, namelogin);
+								System.out.println("Enter Symbol again");
+								 String symbol1=scanner.nextLine();
+								 
+								 System.out.println();
+								System.out.println("Enter number again");
+								int noofshare1=scanner.nextInt();
+								currentperson.sell(symbol1, noofshare1, namelogin);
 								break;
 							case 3:
-								//currentperson.printReport();
+								currentperson.printReport();
 								break;
 							case 4:
-								//currentperson.save(namelogin);
-								//System.out.println("Exiting");
+								currentperson.save(namelogin);
+								System.out.println("Exiting");
+							
 								break;
 							default :
 								System.out.println("Invalid Entry");												
