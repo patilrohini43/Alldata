@@ -5,6 +5,7 @@ import java.io.FileOutputStream;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -22,6 +23,7 @@ public class StockAccount {
 	
 	
 
+	//create the getter and setter method 
 	List<Stocks> stocklist=new ArrayList<>();
 	
 
@@ -38,7 +40,11 @@ public class StockAccount {
 	
 	
 	
-	
+	/**
+	 * This function is create the new file of user and also
+	 * check the file is exist or not
+	 * @param name  accept the user name
+	 */
 	
 	public StockAccount(String name)
 	{
@@ -68,6 +74,13 @@ public class StockAccount {
 		
 	
 }
+	/**
+	*
+	 * This function read the user file which is created and access the list of
+	 * stocklist and trasaction and amount
+	 * @param name login name of user
+	 * @param x
+	 */
 	public StockAccount(String name,int x)
 	{
 		try
@@ -125,26 +138,38 @@ public class StockAccount {
 	
 	
 
-	
+   /**This method is create first company share file,this file stored the information of company share
+    * when user buy that time 1st match the symabol of company in company share file
+    * if match then users share is minus to original share and display amount
+    * @param symbol  accept the symbol from user
+    * @param noofshare  accept the share from user
+    * @param namelogin login name of user i.e already register
+    */
+
 	public void buy(String symbol,int noofshare,String namelogin)
 	{
 		try 
 		{
+			//read the file
 			List<Stocks> list=new ObjectMapper().readValue(new File("/home/admin1/Documents/stockdata.json"), new TypeReference<List<Stocks>>() {});
-			UnorderedList<Stocks> stockmain=new UnorderedList<>();
+			
+			//create StackList for perform the opeartion
+			StackList<Stocks> stockmain=new StackList<>();
+			
 			for(int i=0;i<list.size();i++)
 			{
-				stockmain.add(list.get(i));
+				stockmain.push(list.get(i));
 				
 			}
 			int i=0;
 			String name="";
 			int price=0;
 			int amount=1000;
+			
 			for(i=0;i<stockmain.size();i++)
 			{
-				Stocks tempvalue=stockmain.pop();
-			//	System.out.println(tempvalue);
+				Stocks tempvalue=stockmain.pop1();
+				
 				if(tempvalue.stockssymbol.equals(symbol))
 				{
 					if((noofshare*tempvalue.pricepershare)>amount)
@@ -157,14 +182,14 @@ public class StockAccount {
 						tempvalue.numberofshare-=noofshare;
 						name=tempvalue.stocksname;
 						price=tempvalue.pricepershare;
-						stockmain.add(tempvalue);
+						stockmain.push(tempvalue);
 						amount-=noofshare*tempvalue.pricepershare;
 						break;
 					}
 				}
 				else
 				{
-					stockmain.add(tempvalue);
+					stockmain.push(tempvalue);
 				}
 			}
 			if(i==stockmain.size())
@@ -176,7 +201,7 @@ public class StockAccount {
 			List<Stocks> fill=new ArrayList<>();
 			while(!stockmain.isEmpty())
 			{
-				fill.add(stockmain.pop());
+				fill.add(stockmain.pop1());
 			}
 			new ObjectMapper().writeValue(new File("/home/admin1/Documents/stockdata.json"), fill);
 			boolean stockfindflag=false;
@@ -186,9 +211,10 @@ public class StockAccount {
 				if(temp.stockssymbol.equals(symbol))
 				{
 					stockfindflag=true;
-					Date d=new Date();
-					SimpleDateFormat a=new SimpleDateFormat("dd MM yyyy HH mm SS");
-					String s=symbol+" buy  "+a.format(d);
+					
+					//Current Date
+					LocalDateTime today = LocalDateTime.now();
+					String s=symbol+" buy  "+today;
 					transition.add(s);
 					stocklist.get(j).numberofshare+=noofshare;
 					break;
@@ -199,9 +225,9 @@ public class StockAccount {
 			if(stockfindflag==false)
 			{
 				stocklist.add(new Stocks(name,symbol,noofshare,price));
-				Date d=new Date();
-				SimpleDateFormat a=new SimpleDateFormat("dd MM yyyy HH mm SS");
-				String s=symbol+" buy  "+a.format(d);
+				//Current Date
+				LocalDateTime today = LocalDateTime.now();
+				String s=symbol+" buy  "+today;
 				transition.add(s);
 			}
 		}
@@ -212,6 +238,11 @@ public class StockAccount {
 		}
 }
 
+	/**
+	 * This function when user sell that time first check the symbol is match to company share
+	 * if match share is less than accept the share from user then plus the original share from accepting share
+	 * and write the data from user file
+	 */
 	public void sell(String symbol,int noofshare,String namelogin)
 	{
 		try 
@@ -228,39 +259,43 @@ public class StockAccount {
 					}
 					stocklist.get(i).numberofshare-=noofshare;
 					
-					Date d=new Date();
-					SimpleDateFormat a=new SimpleDateFormat("dd MM yyyy HH mm SS");
-					String s=symbol+" sell  "+a.format(d);
+					//Current Date
+					LocalDateTime today = LocalDateTime.now();
+					String s=symbol+" sell "+today;
 					transition.add(s);
 					amount+=stocklist.get(i).pricepershare*noofshare;
 					break;
 				}
 			}
 			
+			StackList<Stocks> stockmain=new StackList<>();
+			/**
 			List<Stocks> list=new ObjectMapper().readValue(new File("/home/admin1/Documents/stockdata.json"), new TypeReference<List<Stocks>>() {});
-			UnorderedList<Stocks> stockmain=new UnorderedList<>();
+		
+			
 			for(int i=0;i<list.size();i++)
 			{
-				stockmain.add(list.get(i));
+				stockmain.push(list.get(i));
 			}
 			
 			for(int i=0;i<stockmain.size();i++)
 			{
-				Stocks tempvalue=stockmain.pop();
+				Stocks tempvalue=stockmain.pop1();
 				if(tempvalue.stockssymbol.equals(symbol))
 				{
 					tempvalue.numberofshare+=noofshare;
-					stockmain.add(tempvalue);
+					stockmain.push(tempvalue);
 				}
 				else
 				{
-					stockmain.add(tempvalue);
+					stockmain.push(tempvalue);
 				}
 			}
+			**/
 			List<Stocks> fill=new ArrayList<>();
 			while(!stockmain.isEmpty())
 			{
-				fill.add(stockmain.pop());
+				fill.add(stockmain.pop1());
 			}
 			new ObjectMapper().writeValue(new File("/home/admin1/Documents/stockdata.json"), fill);
 					
@@ -272,6 +307,10 @@ public class StockAccount {
 			
 	}
 	
+	/**
+	 * save the file 
+	 * @param filename this name of file
+	 */
 	public void save(String filename)
 	{
 		try
@@ -283,6 +322,9 @@ public class StockAccount {
 			e.printStackTrace();
 		}
 	}
+	/**
+	 * this function display the StockDetails,TransactionDetails
+	 */
 	public void printReport()
 	{
 		System.out.println("StockName    StockSymbol   NoOfShare  SharePrice");

@@ -35,16 +35,19 @@ public class Jsonutil {
 		String string="";
 		return string=scanner.nextLine();
 	}
-	public static void strClose()
-	{
-		scanner.close();
-	}
+	
 	
 	public static int getInt()
 	{
       int number=scanner.nextInt();
 	return number;
+
+	}
 	
+	
+	public static void strClose()
+	{
+		scanner.close();
 	}
 
 	/**

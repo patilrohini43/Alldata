@@ -41,12 +41,11 @@ public StackList()
 	 return (head==null);
  }
 //=============================for Last in first out==================================================================
- public Stocks pop()
+ public void pop()
  {
 	 Node current = head;
 	 head = current.next;
 	 length--;
-	return null;
  }
 //==============================check size of stack===============================================
  public int size()
