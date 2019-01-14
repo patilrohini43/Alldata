@@ -6,6 +6,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
 import java.util.function.Consumer;
@@ -47,8 +50,9 @@ public class AddressBook {
 				System.out.println("3.Delete");
 				System.out.println("4.SearchByName");
 				System.out.println("5.SearchByZip");
-				System.out.println("6.Print");
-				System.out.println("7.Exit");
+				System.out.println("6.SortData");
+				System.out.println("7.Print");
+				System.out.println("8.Exit");
 				choice=Jsonutil.getInt();
 				switch(choice)
 				{
@@ -80,6 +84,19 @@ public class AddressBook {
 					      break;
 					      
 				case 6:
+					   System.out.println("Sort By Name");
+					   sortByName();
+					      break;
+					      
+				case 7:
+					   System.out.println("Sort By Zip");
+					   sortByZip();
+					      break;   
+					      
+					      
+					     
+					      
+				case 8:
 					   System.out.println("Print USer Details");
 					   print(list);
 					   
@@ -87,7 +104,7 @@ public class AddressBook {
 					      
 
 					      
-				case 7:
+				case 9:
 					  System.out.println("Exiting");
 					     
 					break;
@@ -100,7 +117,7 @@ public class AddressBook {
 				
 					
 				
-			}while(choice!=7);
+			}while(choice!=9);
 		
 			return opeationresult;
 		
@@ -343,7 +360,37 @@ public class AddressBook {
 	}
 	
 	
+	
+	
+	public void sortByName()
+	{
 
+		//sort by name	
+		Collections.sort(list, new Comparator<Person>() {
+			@Override
+			public int compare(Person p1, Person p2) {
+				return p1.getFirstname().compareTo(p2.getFirstname());
+			}
+		});
+
+	}
+
+	
+	public void sortByZip()
+	{
+
+		//sort by name	
+		Collections.sort(list, new Comparator<Person>() {
+			@Override
+			public int compare(Person p1, Person p2) {
+				return p1.getAddress().zip.compareTo(p2.getAddress().zip);
+			}
+		});
+
+	}
+	
+	
+	
 	public void searchbyZip()
 	{
 		

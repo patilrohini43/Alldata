@@ -24,8 +24,7 @@ public class MainManagerAddressBook {
 			System.out.println("2.Open");
 			System.out.println("3.Save");
 			System.out.println("4.SaveAs");
-			System.out.println("5.Close");
-			System.out.println("6.Quit");
+			System.out.println("5.Quit");
 			ch=Jsonutil.getInt();
 			switch(ch)
 			{
@@ -47,11 +46,8 @@ public class MainManagerAddressBook {
 				  
 				  
 				  
+				 
 			case 5:
-				 break;
-				 
-				 
-			case 6:
 				System.out.println("Exit");
 				break;
 				default:
