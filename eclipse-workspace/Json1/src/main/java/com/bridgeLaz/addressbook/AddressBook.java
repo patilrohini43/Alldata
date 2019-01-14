@@ -5,10 +5,12 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 import org.codehaus.jackson.map.ObjectMapper;
 import org.json.simple.JSONArray;
@@ -23,6 +25,7 @@ public class AddressBook {
 	 static List<Person> personlist;
      //static List<Person> listdata;
 	 static List<Person> list=new ArrayList<>();
+
 	 static Person person=new Person();
 	 String fname="";
 	 String lname="";
@@ -30,11 +33,12 @@ public class AddressBook {
 	 String city="";
 	 String state="";
 	 String zip="";
-	 
+	boolean opeationresult=false;
 	 
 		static Address address=new Address();	
-		public boolean Opeartion()
+		public boolean Opeartion(List<Person> recvlist)
 		{
+			list=recvlist;
 			int choice=0;
 			do {
 				System.out.println("***********Operation of User***********");
@@ -67,12 +71,12 @@ public class AddressBook {
 					      
 				case 4:
 					   System.out.println("SearchByName USer");
-					   
+					   searchbyName();
 					      break;
 					      
 				case 5:
 					   System.out.println("SearchByZip USer");
-					   
+					   searchbyZip();
 					      break;
 					      
 				case 6:
@@ -97,7 +101,8 @@ public class AddressBook {
 					
 				
 			}while(choice!=7);
-			return false;
+		
+			return opeationresult;
 		
 	
 		}
@@ -307,19 +312,71 @@ public class AddressBook {
     for(i=0;i<list.size();i++)
     {
     	 Person temp=list.get(i);
-    	 Consumer<Person> style = (Person );
-    	 Predicate<Person> personPredicate = p-> temp.getMobno() == deleteMobNo;
-    	 if(temp.mobno.equals(deleteMobNo))
-    	
+    	if(temp.getMobno().equals(deleteMobNo));
     	{
-
-	     list.removeIf(personPredicate);
-
-	}
+    		list.remove(i);
+    	}
     }
 	}
 
 
+	public void searchbyName()
+	{
+		
+		
+       System.out.println("Enter User Name");
+	   String name=sc.nextLine();
+	   
+	try
+	{
+		List<Person> listsearch=(List<Person>)list.stream().filter(i -> i.getFirstname().equals(name)).collect(Collectors.toList());
+		System.out.println("FirstName   LastName    Mobile_Number     City     State     Zip   \n");
+		for(int i=0;i<listsearch.size();i++)
+		{
+			System.out.print(listsearch.get(i).firstname+"     "+listsearch.get(i).lastname+"     "+listsearch.get(i).mobno+"     "+listsearch.get(i).address.state+"    "+listsearch.get(i).address.city+"    "+listsearch.get(i).address.zip);
+        }
+	}catch(Exception e)
+	{
+		System.out.println("Name not found");
+	}
+	
+	}
+	
+	
+
+	public void searchbyZip()
+	{
+		
+		
+       System.out.println("Enter User Zip code");
+	   String zipname=sc.nextLine();
+	   
+	try
+	{
+		List<Person> listsearch=(List<Person>)list
+	    .stream()
+		.filter(i -> i.getAddress().zip.equals(zipname)).collect(Collectors.toList());
+		
+		     
+		    //@SuppressWarnings("unchecked")
+		    //List<Person> listsearch=(List<Person>)list.stream()
+			//	  .filter(i -> i.getAddress().zip.equals(zipname))
+			//	  .findAny()
+			//	  .orElse(null);
+		
+	
+		System.out.println("FirstName   LastName    Mobile_Number     City     State     Zip   \n");
+		for(int i=0;i<listsearch.size();i++)
+		{
+			System.out.print(listsearch.get(i).firstname+"     "+listsearch.get(i).lastname+"     "+listsearch.get(i).mobno+"     "+listsearch.get(i).address.state+"    "+listsearch.get(i).address.city+"    "+listsearch.get(i).address.zip);
+        }
+	}catch(Exception e)
+	{
+		System.out.println("Zip not Found");
+	}
+	}
+	
+	
 
 
 
@@ -331,7 +388,7 @@ public void print( List<Person> listdata)
 	for(int i=0;i<listdata.size();i++)
 	{
 		
-		System.out.print(listdata.get(i).firstname+"     "+listdata.get(i).lastname+"     "+listdata.get(i).mobno+"     "+listdata.get(i).address.state+"    "+listdata.get(i).address.city+"    "+listdata.get(i).address.zip);
+		System.out.print(listdata.get(i).firstname+"     "+listdata.get(i).lastname+"     "+listdata.get(i).mobno+"     "+listdata.get(i).address.state+"    "+listdata.get(i).address.city+"    "+list.get(i).address.zip);
 		
 		System.out.println();
 	}
