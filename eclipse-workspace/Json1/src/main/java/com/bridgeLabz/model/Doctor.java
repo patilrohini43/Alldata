@@ -1,14 +1,28 @@
 package com.bridgeLabz.model;
 
 public class Doctor {
+
 	String doctorId;
 	String doctorName;
 	String doctorAvailibity;
 	String doctorSpecalization;
-	//int amCount=0;
-	//int pmCount=0;
+	int amCount=0;
+	int pmCount=0;
 	
 	
+	
+	public int getAmCount() {
+		return amCount;
+	}
+	public void setAmCount(int amCount) {
+		this.amCount = amCount;
+	}
+	public int getPmCount() {
+		return pmCount;
+	}
+	public void setPmCount(int pmCount) {
+		this.pmCount = pmCount;
+	}
 	public Doctor()
 	{
 		

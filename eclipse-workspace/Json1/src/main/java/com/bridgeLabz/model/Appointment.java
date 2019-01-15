@@ -3,14 +3,14 @@ package com.bridgeLabz.model;
 public class Appointment {
 	
 	String doctorName;
-	int doctorId;
+	String doctorId;
 	String patientName;
-	int patientId;
+	String patientId;
 	String Availibility;
     String patientPhone;
     
     
-    public Appointment(String doctorName,int doctorId,String patientName,int patientId,String patientPhone,String Availibility)
+    public Appointment(String doctorId,String doctorName,String patientName,String patientId,String patientPhone,String Availibility)
 	{
 		this.doctorName=doctorName;
 		this.doctorId=doctorId;
@@ -28,24 +28,38 @@ public class Appointment {
 	public void setDoctorName(String doctorName) {
 		this.doctorName = doctorName;
 	}
-	public int getDoctorId() {
-		return doctorId;
-	}
-	public void setDoctorId(int doctorId) {
-		this.doctorId = doctorId;
-	}
+	
 	public String getPatientName() {
 		return patientName;
 	}
 	public void setPatientName(String patientName) {
 		this.patientName = patientName;
 	}
-	public int getPatientId() {
+	
+	public String getDoctorId() {
+		return doctorId;
+	}
+
+
+
+	public void setDoctorId(String doctorId) {
+		this.doctorId = doctorId;
+	}
+
+
+
+	public String getPatientId() {
 		return patientId;
 	}
-	public void setPatientId(int patientId) {
+
+
+
+	public void setPatientId(String patientId) {
 		this.patientId = patientId;
 	}
+
+
+
 	public String getAvailibility() {
 		return Availibility;
 	}
