@@ -452,7 +452,7 @@ public void appointment()
 							doctorlist.get(i).setAmCount(temp1+1);
 						}
 					}
-				}
+				}System.out.println("Appointment Fixed");
 			}
 		}
 		else
@@ -478,7 +478,7 @@ public void appointment()
 			}
 		appointmentlist.add(new Appointment(id,dname,available,patientid,pname,mobno));
 
-		System.out.println("Appointment Fixed");
+		
 }
 	
 
